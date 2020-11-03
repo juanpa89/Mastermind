@@ -16,14 +16,22 @@ class Line
         @a2 = "-"
         @a3 = "-"
         @a4 = "-"
-
-        if number > 9
-            @line = "#{number} |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}"
+        
+        if number == 12
+            @line = "\n\n\t#{number} |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}"
+        elsif number > 9
+            @line = "\t#{number} |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}"
+        elsif number == 3
+            @line = "\t#{number}  |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}\t Choose Four Numbers From 1 to 6."
+        elsif number == 2
+            @line = "\t#{number}  |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}\t \u2022 = 100% Correct."
+        elsif number == 1
+            @line = "\t#{number}  |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}\t * = Right Number, Wrong Space."
         else
-            @line = "#{number}  |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}"
+            @line = "\t#{number}  |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}"
         end
     end
-
+    
     def print_line
         puts self.line
     end
@@ -45,18 +53,18 @@ class Board
         @l11 = Line.new(11)
         @l12 = Line.new(12)
 
-        @board = "#{self.l1.print_line}
-        #{self.l2.print_line}
-        #{self.l3.print_line}
-        #{self.l4.print_line}
-        #{self.l5.print_line}
-        #{self.l6.print_line}
-        #{self.l7.print_line}
-        #{self.l8.print_line}
-        #{self.l9.print_line}
-        #{self.l10.print_line}
+        @board = "#{self.l12.print_line}
         #{self.l11.print_line}
-        #{self.l12.print_line}"
+        #{self.l10.print_line}
+        #{self.l9.print_line}
+        #{self.l8.print_line}
+        #{self.l7.print_line}
+        #{self.l6.print_line}
+        #{self.l6.print_line}
+        #{self.l4.print_line}
+        #{self.l3.print_line}
+        #{self.l2.print_line}
+        #{self.l1.print_line}"
     end
 
     def print
@@ -65,5 +73,6 @@ class Board
 end
 
 
+set_title
 board = Board.new
 board.print
