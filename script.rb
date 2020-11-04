@@ -21,7 +21,11 @@ class Line
 
     def get_answer
         puts "\n\nChoose your numbers"
-        answer = gets.chomp.to_s
+        answer = gets.chomp
+        while answer[0].to_i > 6 || answer[1].to_i > 6 || answer[2].to_i > 6 || answer[3].to_i > 6
+            puts "\n\nChoose your numbers, they have to be numbers from 1 to 6."
+            answer = gets.chomp
+        end
         self.p1 = answer[0]
         self.p2 = answer[1]
         self.p3 = answer[2]
