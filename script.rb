@@ -6,8 +6,9 @@ def set_title
 end
 
 class Line
-    attr_accessor :p1, :p2, :p3, :p4, :a1, :a2, :a3, :a4, :line 
+    attr_accessor :p1, :p2, :p3, :p4, :a1, :a2, :a3, :a4, :number
     def initialize (number)
+        @number = number
         @p1 = "-"
         @p2 = "-"
         @p3 = "-"
@@ -16,30 +17,51 @@ class Line
         @a2 = "-"
         @a3 = "-"
         @a4 = "-"
+    end
+
+    def get_answer
+        puts "\n\nChoose your numbers"
+        answer = gets.chomp.to_s
+        self.p1 = answer[0]
+        self.p2 = answer[1]
+        self.p3 = answer[2]
+        self.p4 = answer[3]
+    end
         
-        if number == 12
-            @line = "\n\n\t#{number} |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}"
-        elsif number > 9
-            @line = "\t#{number} |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}"
-        elsif number == 3
-            @line = "\t#{number}  |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}\t Choose Four Numbers From 1 to 6."
-        elsif number == 2
-            @line = "\t#{number}  |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}\t \u2022 = 100% Correct."
-        elsif number == 1
-            @line = "\t#{number}  |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}\t * = Right Number, Wrong Space."
+    
+    def give_feedback
+
+    end
+
+
+    def print_line
+        if self.number == 12
+            "\n\n\t\t#{self.number} |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}"
+        elsif self.number > 9
+            "\t#{self.number} |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}"
+        elsif self.number == 3
+            "\t#{self.number}  |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}\t Choose Four Numbers From 1 to 6."
+        elsif self.number == 2
+            "\t#{self.number}  |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}\t \u2022 = 100% Correct."
+        elsif self.number == 1
+            "\t#{self.number}  |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}\t * = Right Number, Wrong Space."
         else
-            @line = "\t#{number}  |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}"
+            "\t#{self.number}  |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}"
         end
     end
-    
-    def print_line
-        puts self.line
+
+    def test
+        
     end
 end
 
 class Board
-    attr_accessor :l1, :l2, :l3, :l4, :l5, :l6, :l7, :l8, :l9, :l10, :l11, :l12, :board
+    attr_accessor :l1, :l2, :l3, :l4, :l5, :l6, :l7, :l8, :l9,
+     :l10, :l11, :l12, :board, :random_numbers, :show_numbers
     def initialize
+        @random_numbers = []
+        @show_numbers = "    "
+
         @l1 = Line.new(1)
         @l2 = Line.new(2)
         @l3 = Line.new(3)
@@ -52,27 +74,39 @@ class Board
         @l10 = Line.new(10)
         @l11 = Line.new(11)
         @l12 = Line.new(12)
+    end
 
-        @board = "#{self.l12.print_line}
+    def print_board
+        puts "\n\n\t\t ->#{self.show_numbers}<-
+        #{self.l12.print_line}
         #{self.l11.print_line}
         #{self.l10.print_line}
         #{self.l9.print_line}
         #{self.l8.print_line}
         #{self.l7.print_line}
         #{self.l6.print_line}
-        #{self.l6.print_line}
+        #{self.l5.print_line}
         #{self.l4.print_line}
         #{self.l3.print_line}
         #{self.l2.print_line}
         #{self.l1.print_line}"
     end
 
-    def print
-        puts self.board
+    def select_number
+        4.times do
+            self.random_numbers.push(rand(1..6))
+        end
     end
 end
 
 
 set_title
 board = Board.new
-board.print
+board.select_number
+board.print_board
+board.l1.get_answer
+system("clear")
+set_title
+board.print_board
+
+
