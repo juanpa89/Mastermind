@@ -38,7 +38,7 @@ class Line
     end
 
 
-    def print_line
+    def make_line
         if self.number == 12
             "\n\n\t\t#{self.number} |  #{self.p1}#{self.p2}#{self.p3}#{self.p4}  |  |#{self.a1}#{self.a2}#{self.a3}#{self.a4}"
         elsif self.number > 9
@@ -82,18 +82,18 @@ class Board
 
     def print_board
         puts "\n\n\t\t ->#{self.show_numbers}<-
-        #{self.l12.print_line}
-        #{self.l11.print_line}
-        #{self.l10.print_line}
-        #{self.l9.print_line}
-        #{self.l8.print_line}
-        #{self.l7.print_line}
-        #{self.l6.print_line}
-        #{self.l5.print_line}
-        #{self.l4.print_line}
-        #{self.l3.print_line}
-        #{self.l2.print_line}
-        #{self.l1.print_line}"
+        #{self.l12.make_line}
+        #{self.l11.make_line}
+        #{self.l10.make_line}
+        #{self.l9.make_line}
+        #{self.l8.make_line}
+        #{self.l7.make_line}
+        #{self.l6.make_line}
+        #{self.l5.make_line}
+        #{self.l4.make_line}
+        #{self.l3.make_line}
+        #{self.l2.make_line}
+        #{self.l1.make_line}"
     end
 
     def select_number
