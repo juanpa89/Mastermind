@@ -38,11 +38,14 @@ class Line
         ordered_answer = ['-','-','-','-']
         #check if is in the position and give \u2022
         index_1 = 0
+        numbers = $random_numbers.dup
         for i in position_list
             x = index_1
-            for j in $random_numbers
+            print numbers
+            for j in numbers
                 if i == j
                     ordered_answer[x] = ("*")
+                    numbers.delete(i)
                     break
                 end
             end
@@ -58,6 +61,8 @@ class Line
             index += 1
         end
 
+
+
         #make the answer to be in random place
         ordered_answer.shuffle!
 
@@ -66,7 +71,6 @@ class Line
         self.a3 = ordered_answer[2]
         self.a4 = ordered_answer[3]
     end
-
 
     def make_line
         if self.number == 12
@@ -84,50 +88,48 @@ class Line
         end
     end
 
-    def test
-        
+    def check_winner
+        if self.p1 == $random_numbers[0] && self.p2 == $random_numbers[1] && self.p3 == $random_numbers[2] && self.p4 == $random_numbers[3]
+            puts "You Won!!"
+            $play_game = false
+        end
+        if self.number == 12
+            if self.p1 != $random_numbers[0] && self.p2 != $random_numbers[1] && self.p3 != $random_numbers[2] && self.p4 != $random_numbers[3]
+                puts "You loose!"
+                $play_game = false
+            end
+        end
     end
 end
 
 class Board
     attr_accessor :l1, :l2, :l3, :l4, :l5, :l6, :l7, :l8, :l9,
-     :l10, :l11, :l12, :board, :random_numbers, :show_numbers
+     :l10, :l11, :l12, :board, :lines, :show_numbers
     def initialize
         
         @show_numbers = "    "
 
-        @l1 = Line.new(1)
-        @l2 = Line.new(2)
-        @l3 = Line.new(3)
-        @l4 = Line.new(4)
-        @l5 = Line.new(5)
-        @l6 = Line.new(6)
-        @l7 = Line.new(7)
-        @l8 = Line.new(8)
-        @l9 = Line.new(9)
-        @l10 = Line.new(10)
-        @l11 = Line.new(11)
-        @l12 = Line.new(12)
+        @lines = [l1 = Line.new(1), l2 = Line.new(2), l3 = Line.new(3), l4 = Line.new(4), l5 = Line.new(5), l6 = Line.new(6), l7 = Line.new(7), l8 = Line.new(8), l9 = Line.new(9), l10 = Line.new(10), l11 = Line.new(11), l12 = Line.new(12)]
     end
 =begin self.show_numbers 
 =end
     def print_board
+        system('clear')
+        set_title
         puts "\n\n\t\t ->#{$random_numbers}<-
-        #{self.l12.make_line}
-        #{self.l11.make_line}
-        #{self.l10.make_line}
-        #{self.l9.make_line}
-        #{self.l8.make_line}
-        #{self.l7.make_line}
-        #{self.l6.make_line}
-        #{self.l5.make_line}
-        #{self.l4.make_line}
-        #{self.l3.make_line}
-        #{self.l2.make_line}
-        #{self.l1.make_line}"
+        #{self.lines[11].make_line}
+        #{self.lines[10].make_line}
+        #{self.lines[9].make_line}
+        #{self.lines[8].make_line}
+        #{self.lines[7].make_line}
+        #{self.lines[6].make_line}
+        #{self.lines[5].make_line}
+        #{self.lines[4].make_line}
+        #{self.lines[3].make_line}
+        #{self.lines[2].make_line}
+        #{self.lines[1].make_line}
+        #{self.lines[0].make_line}"
     end
-
-    
 end
 
 def select_numbers
@@ -137,7 +139,23 @@ def select_numbers
 end
 
 $random_numbers = []
+$play_game = true
+$board = Board.new
+select_numbers
+index_lines = 0
 
+while $play_game == true
+    i = index_lines
+    $board.print_board
+    $board.lines[i].get_answer
+    $board.print_board
+    $board.lines[i].give_feedback
+    $board.print_board
+    $board.lines[i].check_winner
+    index_lines += 1
+end
+
+=begin
 set_title
 board = Board.new
 select_numbers
@@ -148,3 +166,4 @@ set_title
 board.print_board
 board.l1.give_feedback
 board.print_board
+=end
